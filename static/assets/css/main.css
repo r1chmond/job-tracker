@@ -6,6 +6,16 @@
   --color-dark: #754ee2;
   --color-light: #d984d5;
   --color-white: #ffffff;
+  --color-status-bb: #949494;
+  --color-status-fb: #5c5c5c;
+  --color-status-ba: #e8e464;
+  --color-status-fa: #c05621;
+  --color-status-bi: #64bee8;
+  --color-status-fi: #1232b3;
+  --color-status-bo: #64e88b;
+  --color-status-fo: #22543d;
+  --color-status-bn: #e86464;
+  --color-status-fn: #c53030;;
 
   /*font*/
   --main-font: "Rubik";
@@ -59,11 +69,94 @@ body {
   display: flex;
   justify-content: space-around;
 }
-/* #add-job-btn{
-    background-color: var(--color-black);
-    color: var(--color-white);
-} */
 
 #step-icon-container{
     margin-right: 10px;
+}
+
+.stats-container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+        
+.main-stat{
+  background-color: var(--color-white);
+  border-radius: 8px;
+  padding: 30px;
+  margin: 30px 0px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  }
+        
+.main-stat h2{
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+.main-stat .value{
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+.stats-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+.stat-card{
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-width: 4px;
+  border-color: var(--color-dark);
+  }
+        
+.stat-card h3{
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+        
+.stat-card .value{
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+        
+
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status.bookmarked {
+    background: var(--color-status-b);
+    color: var(--color-status-fb)
+}
+
+.status.applied{
+  background-color: var(--color-status-ba);
+  color: var(--color-status-fa);
+}
+
+.status.interviewing{
+  background-color: var(--color-status-bi);
+  color: var(--color-status-fi);
+}
+
+.status.offer{
+  background-color: var(--color-status-bo);
+  color: var(--color-status-fo);
+}
+
+.status.rejected{
+  background-color: var(--color-status-bn);
+  color: var(--color-status-fn);
 }

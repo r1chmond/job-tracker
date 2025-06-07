@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from trackerapp.forms import JobForm, NoteForm
-from trackerapp.models import Job, Note
+from trackerapp.models import Job, Note, Status
 import logging
 from django.contrib import messages
+from collections import Counter
 
 logger = logging.getLogger(__name__)
 
@@ -57,10 +58,23 @@ def add_note(request, job_id):
              
 
 def stats(request):
-    return render(request, 'stats.html')
-# def job_list(request):
-#     jobs = Job.objects.all()
-#     return render(request, 'home.html', {'jobs': jobs})
+    total_jobs = Job.objects.count()
+    bookmarked_jobs = Job.objects.filter(status=Status.BOOKMARKED).count()
+    applied_jobs = Job.objects.filter(status=Status.APPLIED).count()
+    interviewing_jobs = Job.objects.filter(status=Status.INTERVIEWING).count() 
+    offer_jobs = Job.objects.filter(status=Status.OFFER).count() 
+    rejected_jobs = Job.objects.filter(status=Status.NOT_SELECTED).count()
+
+    context = {
+        'total_jobs': total_jobs, 
+        'applied_jobs': applied_jobs,
+        'bookmarked_jobs': bookmarked_jobs,
+        'interviewing_jobs': interviewing_jobs,
+        'offer_jobs': offer_jobs,
+        'rejected_jobs': rejected_jobs
+    }
+
+    return render(request, 'stats.html', context)
     
 
     

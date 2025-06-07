@@ -106,7 +106,72 @@
 <!-- End Modal-->
 
 <!-- Job List-->
-<ul id="myUL" class="list-group">
+<table class="expandable-table">
+  <tbody>
+    {%for job in jobs%}
+    <tr class="expandable-row" onclick="toggleRow(this, 'marketing-details')">
+      <td><b>{{job.title}}</b></td>
+      <td>{{job.company}}</td>
+      <td>{{job.url}}</td>
+      <td>{{job.location}}</td>
+      <td>{{job.status}}</td>
+    </tr>
+    <tr class="detail-row" id="marketing-details">
+                        <td colspan="5">
+                            <div class="detail-content">
+                                <h4>Department Details</h4>
+                                <p><strong>Team Size:</strong> 12 employees</p>
+                                <p><strong>Key Projects:</strong> Brand Campaign 2024, Social Media Strategy, Product Launch</p>
+                                <p><strong>Quarterly Goals:</strong> Increase brand awareness by 25%, Launch 3 major campaigns</p>
+                                <p><strong>Contact:</strong> sarah.johnson@company.com | Ext: 1234</p>
+                            </div>
+                        </td>
+                    </tr>
+  {%endfor%}
+  </tbody>
+</table>
+{% comment %} <table>
+  
+  <tbody id="myUL">
+    {% for job in jobs %}
+    <tr>
+      <span class="caret">
+      <td><b>{{job.title}}</b></td>
+      <td>{{job.company}}</td>
+      <td>{{job.url}}</td>
+      <td>{{job.location}}</td>
+      <td>{{job.status}}</td>
+      </span>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped nested">
+     <tbody>
+        <tr>
+            <td>
+              <a href="{% url 'add_note' job.id %}" class="btn primary-btn add-note-btn" data-bs-toggle="modal" data-bs-target="#noteFormModal">Add Note</a>
+                  
+              <ul class="list-group">
+                {% with notes=job|get_notes %}
+                {% for note in notes %}
+                <li class="list-group-item">{{ note.note }}</li>
+                {% endfor %}
+                {% endwith %}
+              </ul>
+            </td>
+            <td>
+              {{ job.description }}
+            </td>
+        </tr>
+     </tbody>
+    </table>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table> {% endcomment %}
+{% comment %} <ul id="myUL" class="list-group">
   {% for job in jobs %}
   <li class="list-group-item">
     <div class="caret d-flex align-items-center">
@@ -114,6 +179,7 @@
     <div class="p-2 flex-fill">{{ job.company }} </div>
     <div class="p-2 flex-fill"><a target="_blank" href="{{ job.url }}">{{ job.url }}</a> </div>
     <div class="p-2 flex-fill">{{ job.location }} </div>
+    <div class="p-2 flex-fill">{{ job.status}} </div>
     </div>
     <table class="table table-striped nested">
      <tbody>
@@ -124,7 +190,7 @@
               <ul class="list-group">
                 {% with notes=job|get_notes %}
                 {% for note in notes %}
-                <li class="list-group-item"><i>{{ note.job.title }}</i> {{ note.note }}</li>
+                <li class="list-group-item">{{ note.note }}</li>
                 {% endfor %}
                 {% endwith %}
               </ul>
@@ -139,7 +205,7 @@
 {% empty %}
   <li class="list-group-item">No jobs available yet</li>
 {% endfor %}
-</ul>
+</ul> {% endcomment %}
 <!--End Job List-->
 
             <!--Note Form Modal -->

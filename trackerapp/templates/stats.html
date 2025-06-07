@@ -3,4 +3,48 @@
 {% load widget_tweaks %}
 {% block content %}
 
+
+
+
+
+<div class="stats-container">
+        
+        <!-- Main Stat Tile -->
+        <div class="main-stat">
+            <h2>Total Jobs</h2>
+            <div class="value">{{total_jobs}}</div>
+        </div>
+        
+        <!-- Category Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Bookmarked</h3>
+                <div class="value">{{bookmarked_jobs}}</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Applied</h3>
+                <div class="value">{{ applied_jobs }}</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Interviewing</h3>
+                <div class="value">{{interviewing_jobs}}</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Offer</h3>
+                <div class="value">{{offer_jobs}}</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Not Selected</h3>
+                <div class="value">{{rejected_jobs}}</div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+
 {%endblock%}

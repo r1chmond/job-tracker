@@ -33,3 +33,15 @@ document.addEventListener("DOMContentLoaded", function () {
 }    
 })
 
+
+function toggleRow(clickedRow, detailId) {
+            const detailRow = document.getElementById(detailId);
+            clickedRow.classList.toggle('expanded');
+            detailRow.classList.toggle('show');
+        }
+
+function toggleTree(element) {
+            element.classList.toggle('caret-down');
+            const nested = element.nextElementSibling;
+            nested.classList.toggle('active');}
+
