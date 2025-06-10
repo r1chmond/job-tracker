@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def home(request):
-    job_form = JobForm()
+    job_form = JobForm() 
     note_form = NoteForm()
     query = request.GET.get('search-input')
     if query:
@@ -31,13 +31,9 @@ def add_job(request):
         form = JobForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
         else:
             messages.error(request, 'Form is invalid')
-    else:
-        form = JobForm()
-        
-    return render(request, "home.html", {'job_form': form})
+    return redirect('home')
 
 def add_note(request, job_id):
     job = get_object_or_404(Job, pk=job_id)
@@ -77,4 +73,35 @@ def stats(request):
     return render(request, 'stats.html', context)
     
 
+# def fetch_job(request, job_id):
+
     
+
+def edit_job(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
+    if request.method == 'POST':
+        form = JobForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+        else:
+            messages.error(request, 'Form is invalid')
+        
+    return redirect('home')
+
+
+def delete_job(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
+    job.delete()
+    return redirect('home')
+
+    # logger.debug(f'===================> {job.title}')
+    # note_form = NoteForm()
+    # jobs = Job.objects.all()
+    # context = {
+    #     'job_form': form,
+    #     'note_form': note_form,
+    #     'jobs': jobs,
+    #     'query': None,
+    #     'current_job': job,  # Used in the template to show "Edit"
+    # }
+    # return render(request, 'home.html', context)

@@ -33,15 +33,32 @@ document.addEventListener("DOMContentLoaded", function () {
 }    
 })
 
+function openModal(id, title, company, url, location,status, description,modalTitle, formAction) {
+    document.getElementById('jobFormModalLabel').innerText = modalTitle;
+    document.getElementById('id_title').value = title;
+    document.getElementById('id_company').value = company;
+    document.getElementById('id_location').value = location;
+    document.getElementById('id_url').value = url;
+    document.getElementById('id_status').value = status;
+    document.getElementById('id_description').value = description;
+    document.getElementById('job-form').action = formAction;
 
-function toggleRow(clickedRow, detailId) {
-            const detailRow = document.getElementById(detailId);
-            clickedRow.classList.toggle('expanded');
-            detailRow.classList.toggle('show');
-        }
+    const submitBtn = document.getElementById('job-form-submit-btn')
+    if (id){
+      submitBtn.innerHTML = 'Update'
+    }else{
+      submitBtn.innerHTML = 'Add'
+    }
 
-function toggleTree(element) {
-            element.classList.toggle('caret-down');
-            const nested = element.nextElementSibling;
-            nested.classList.toggle('active');}
+    // Show modal (bootstrap 5)
+    var bookModal = new bootstrap.Modal(document.getElementById('jobFormModal'));
+    bookModal.show();
+}
 
+
+function deleteWarning(){
+ return  confirm('Are you sure?')
+}
+// function toggleRow(row) {
+//       row.classList.toggle("expanded");
+// }
