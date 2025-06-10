@@ -17,7 +17,7 @@
   </form>
 
   <button id="add-job-btn" class="btn primary-btn" 
-  onclick="openModal('', '', '', '', '', '','', 'Add Job', '{% url 'add_job' %}')">&#43; Add Job</button>
+  onclick="openJobModal('', '', '', '', '', '','', 'Add Job', '{% url 'add_job' %}')">&#43; Add Job</button>
 
 <!-- Job Form Modal -->
 <div class="modal fade" id="jobFormModal" tabindex="-1" aria-labelledby="jobFormModalLabel" aria-hidden="true">
@@ -33,7 +33,7 @@
           {% endfor %}
         {% endif %}
       <div class="modal-body">
-    <form id="job-form" {% if current_job %}action="{% url 'edit_job' current_job.id %}"{% else %}action="{% url 'add_job' %}{% endif %}"  method="POST">
+    <form id="job-form" method="POST">
         {% csrf_token %}
    <div class="mb-3">
     <label for="{{ job_form.title.id_for_label }}" class="form-label">Job Title</label>
@@ -119,7 +119,7 @@
     <div class="col">{{ job.status}} </div>
     <div>
    <a class="btn primary-btn" 
-        onclick="openModal('{{ job.id }}', '{{ job.title|escapejs }}', '{{ job.company|escapejs }}' ,'{{ job.url|escapejs }}','{{ job.location|escapejs }}','{{ job.status|escapejs }}','{{ job.description|escapejs }}' ,'Edit Job', '{% url 'edit_job' job.id %}')"><i class="bx bx-pencil"></i></a>
+        onclick="openJobModal('{{ job.id }}', '{{ job.title|escapejs }}', '{{ job.company|escapejs }}' ,'{{ job.url|escapejs }}','{{ job.location|escapejs }}','{{ job.status|escapejs }}','{{ job.description|escapejs }}' ,'Edit Job', '{% url 'edit_job' job.id %}')"><i class="bx bx-pencil"></i></a>
     <a id="delete-job-btn" class="btn secondary-btn" href="{% url 'delete_job' job.id %}" onclick="return deleteWarning()"><i class="bx bx-trash"></i></a>
     </div>
     </div>
@@ -127,12 +127,20 @@
      <tbody>
         <tr>
             <td>
-              <a href="{% url 'add_note' job.id %}" class="btn primary-btn add-note-btn" data-bs-toggle="modal" data-bs-target="#noteFormModal">Add Note</a>
+              <a class="btn primary-btn add-note-btn"
+                onclick="openNoteModal('', '', 'Add Note' ,'{% url 'add_note' job.id %}')">
+              Add Note</a>
                   
               <ul class="list-group">
                 {% with notes=job|get_notes %}
                 {% for note in notes %}
-                <li class="list-group-item">{{ note.note }}</li>
+                <li class="list-group-item">{{ note.note }}
+                 <div>
+                <a class="btn primary-btn" 
+                onclick="openNoteModal('{{ note.id }}', '{{ note.note|escapejs }}', 'Edit Note' ,'{% url 'edit_note' note.id %}')"><i class="bx bx-pencil"></i></a>
+                <a id="delete-job-btn" class="btn secondary-btn" href="{% url 'delete_note' note.id %}" onclick="return deleteWarning()"><i class="bx bx-trash"></i></a>
+                </div>
+                </li>
                 {% endfor %}
                 {% endwith %}
               </ul>
@@ -151,23 +159,23 @@
 <!--End Job List-->
 
 <!--Note Form Modal -->
-<div class="modal fade" id="noteFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="noteFormModal" tabindex="-1" aria-labelledby="noteFormModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Note</h1>
+        <h1 class="modal-title fs-5" id="noteFormModalLabel">Add Note</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="note_form" action="" method="POST">
+      <form id="note-form" method="POST">
         {% csrf_token %}
         <div class="mb-3">
-    {% comment %} <label for="{{ note_form.note.id_for_label }}" class="form-label">Note</label> {% endcomment %}
+    <label for="{{ note_form.note.id_for_label }}" class="form-label" hidden></label>
     {{ note_form.note|add_class:"form-control" }}
         </div>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn secondary-btn" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn primary-btn" form="note_form">Add Note</button>
+        <button id="note-form-submit-btn" type="submit" class="btn primary-btn" form="note-form"></button>
       </div>
     </div>
   </div>

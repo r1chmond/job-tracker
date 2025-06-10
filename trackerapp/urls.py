@@ -7,6 +7,7 @@ urlpatterns = [
     path('<int:job_id>/add_note/', views.add_note, name='add_note'),
     path('stats/', views.stats, name='stats'),
     path('edit/<int:job_id>/', views.edit_job, name='edit_job'),
-    path('delete/<int:job_id>/', views.delete_job, name='delete_job')
-
+    path('delete/<int:job_id>/', views.delete_job, name='delete_job'),
+    path('edit_note/<int:note_id>/', views.edit_note, name='edit_note'),
+    path('delete_note/<int:note_id>/', views.delete_note, name='delete_note'),
 ]

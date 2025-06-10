@@ -22,18 +22,18 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 // pass job id on button click (add form)
-document.addEventListener("DOMContentLoaded", function () {
-    const addNoteBtn = document.getElementsByClassName("add-note-btn")
-    const addNoteForm = document.getElementById("note_form")
-    for (let i = 0; i < addNoteBtn.length; i++){
-    addNoteBtn[i].addEventListener("click",()=>{
-    link = addNoteBtn.item(i).getAttribute("href")
-    addNoteForm.action = `${link}`
-    })
-}    
-})
+// document.addEventListener("DOMContentLoaded", function () {
+//     const addNoteBtn = document.getElementsByClassName("add-note-btn")
+//     const addNoteForm = document.getElementById("note-form")
+//     for (let i = 0; i < addNoteBtn.length; i++){
+//     addNoteBtn[i].addEventListener("click",()=>{
+//     link = addNoteBtn.item(i).getAttribute("href")
+//     addNoteForm.action = `${link}`
+//     })
+// }    
+// })
 
-function openModal(id, title, company, url, location,status, description,modalTitle, formAction) {
+function openJobModal(id, title, company, url, location,status, description,modalTitle, formAction) {
     document.getElementById('jobFormModalLabel').innerText = modalTitle;
     document.getElementById('id_title').value = title;
     document.getElementById('id_company').value = company;
@@ -51,10 +51,26 @@ function openModal(id, title, company, url, location,status, description,modalTi
     }
 
     // Show modal (bootstrap 5)
-    var bookModal = new bootstrap.Modal(document.getElementById('jobFormModal'));
-    bookModal.show();
+    let jobModal = new bootstrap.Modal(document.getElementById('jobFormModal'));
+    jobModal.show();
 }
 
+
+function openNoteModal(id, note, modalTitle, formAction){
+  document.getElementById('noteFormModalLabel').innerText = modalTitle
+  document.getElementById('id_note').value = note
+  document.getElementById('note-form').action = formAction
+
+  const submitBtn = document.getElementById('note-form-submit-btn')
+  if (id){
+    submitBtn.innerHTML = 'Update'
+  }else{
+    submitBtn.innerHTML = 'Add Note'
+  }
+
+  let noteModal = new bootstrap.Modal(document.getElementById('noteFormModal'));
+  noteModal.show();
+}
 
 function deleteWarning(){
  return  confirm('Are you sure?')

@@ -44,12 +44,7 @@ def add_note(request, job_id):
         form = NoteForm(form_data)
         if form.is_valid():
             form.save()
-            return redirect('home')
-        else:
-            messages.error(request, 'Form in invalid')
-    else:
-        form = NoteForm()
-    return render(request, 'home.html', {'note_form': form, 'cur_job': job})
+    return redirect('home')
             
              
 
@@ -73,9 +68,6 @@ def stats(request):
     return render(request, 'stats.html', context)
     
 
-# def fetch_job(request, job_id):
-
-    
 
 def edit_job(request, job_id):
     job = get_object_or_404(Job, pk=job_id)
@@ -85,23 +77,25 @@ def edit_job(request, job_id):
             form.save()
         else:
             messages.error(request, 'Form is invalid')
-        
     return redirect('home')
 
+def edit_note(request, note_id):
+    note = get_object_or_404(Note, pk=note_id)
+    if request.method == 'POST':
+        form_data = request.POST.copy()
+        form_data['job'] = note.job
+        form = NoteForm(form_data, instance=note)
+        if form.is_valid():
+            form.save()
+    return redirect('home')
+            
 
 def delete_job(request, job_id):
     job = get_object_or_404(Job, pk=job_id)
     job.delete()
     return redirect('home')
 
-    # logger.debug(f'===================> {job.title}')
-    # note_form = NoteForm()
-    # jobs = Job.objects.all()
-    # context = {
-    #     'job_form': form,
-    #     'note_form': note_form,
-    #     'jobs': jobs,
-    #     'query': None,
-    #     'current_job': job,  # Used in the template to show "Edit"
-    # }
-    # return render(request, 'home.html', context)
+def delete_note(request, note_id):
+    note = get_object_or_404(Note, pk=note_id)
+    note.delete()
+    return redirect('home')
