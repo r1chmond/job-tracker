@@ -110,46 +110,49 @@
 
 <ul id="myUL" class="list-group">
   {% for job in jobs %}
-  <li class="list-group-item">
-    <div class="caret d-flex align-items-center">
-    <b class="col">{{ job.title }}</b>
-    <div class="col">{{ job.company }} </div>
-    <div class="col"><a target="_blank" href="{{ job.url }}">{{ job.url }}</a> </div>
-    <div class="col">{{ job.location }} </div>
-    <div class="col">{{ job.status}} </div>
-    <div>
+  <li class="list-group-item job-list-item">
+    <div class="caret job-detail-container">
+    <div class="job-title">{{ job.title }}</div>
+    <div class="job-company">{{ job.company }} </div>
+    <div class="job-url"><a target="_blank" href="{{ job.url }}">{{ job.url }}</a></div>
+    <div class="job-location">{{ job.location }} </div>
+    <div class="job-status status {{ job.status|check_class_name }}">{{ job.status}} </div>
+    </div>
+    <div class="btns-container">
    <a class="btn primary-btn" 
         onclick="openJobModal('{{ job.id }}', '{{ job.title|escapejs }}', '{{ job.company|escapejs }}' ,'{{ job.url|escapejs }}','{{ job.location|escapejs }}','{{ job.status|escapejs }}','{{ job.description|escapejs }}' ,'Edit Job', '{% url 'edit_job' job.id %}')"><i class="bx bx-pencil"></i></a>
-    <a id="delete-job-btn" class="btn secondary-btn" href="{% url 'delete_job' job.id %}" onclick="return deleteWarning()"><i class="bx bx-trash"></i></a>
+    <a id="delete-job-btn" class="btn secondary-btn" href="{% url 'delete_job' job.id %}"><i class="bx bx-trash"></i></a>
     </div>
-    </div>
-    <table class="table table-striped nested">
-     <tbody>
+
+    <table class="nested-table nested">
         <tr>
-            <td>
+        <hr/>
+            <td id="notes-col">
+              <div id="add-note-btn-container">
               <a class="btn primary-btn add-note-btn"
                 onclick="openNoteModal('', '', 'Add Note' ,'{% url 'add_note' job.id %}')">
               Add Note</a>
+              </div>
                   
               <ul class="list-group">
                 {% with notes=job|get_notes %}
                 {% for note in notes %}
-                <li class="list-group-item">{{ note.note }}
-                 <div>
+                <li class="d-flex justify-content-between list-group-item">{{ note.note }}
+                 <div id="note-list-btn-container" class="d-flex align-items-center">
                 <a class="btn primary-btn" 
                 onclick="openNoteModal('{{ note.id }}', '{{ note.note|escapejs }}', 'Edit Note' ,'{% url 'edit_note' note.id %}')"><i class="bx bx-pencil"></i></a>
-                <a id="delete-job-btn" class="btn secondary-btn" href="{% url 'delete_note' note.id %}" onclick="return deleteWarning()"><i class="bx bx-trash"></i></a>
+                <a id="delete-note-btn" class="btn secondary-btn" href="{% url 'delete_note' note.id %}"><i class="bx bx-trash"></i></a>
                 </div>
                 </li>
                 {% endfor %}
                 {% endwith %}
               </ul>
             </td>
-            <td>
+            <td id="desc-col">
+              <div id="job-desc-title">Description</div>
               {{ job.description }}
             </td>
         </tr>
-     </tbody>
     </table>
   </li>
 {% empty %}

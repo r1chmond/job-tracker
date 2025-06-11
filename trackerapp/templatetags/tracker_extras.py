@@ -8,3 +8,10 @@ register = template.Library()
 def get_notes(job):
     notes = Note.objects.filter(job=job)
     return notes
+
+@register.filter
+def check_class_name(status):
+    lowered_status = status.lower()
+    if lowered_status == 'not selected':
+        return 'rejected'
+    return lowered_status

@@ -11,35 +11,47 @@
         
         <!-- Main Stat Tile -->
         <div class="main-stat">
-            <h2>Total Jobs</h2>
-            <div class="value">{{total_jobs}}</div>
+            {% comment %} <h2>Total Jobs</h2> {% endcomment %}
+            <div>
+                <canvas id="bar-chart"></canvas>
+            <div id="stat-total-jobs" class="value" hidden>
+            {{ total_jobs}}
+            </div>
+            </div>
         </div>
         
         <!-- Category Stats Grid -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>Bookmarked</h3>
-                <div class="value">{{bookmarked_jobs}}</div>
+                <div>
+                    <canvas id="bookmarked-chart"></canvas>
+                    <div id="stat-bookmarked-jobs" class="value">{{ bookmarked_jobs }}</div>
+                </div>
             </div>
             
             <div class="stat-card">
                 <h3>Applied</h3>
-                <div class="value">{{ applied_jobs }}</div>
+                    <canvas id="applied-chart"></canvas>
+                <div id="stat-applied-jobs" class="value">{{ applied_jobs }}</div>
             </div>
             
             <div class="stat-card">
                 <h3>Interviewing</h3>
-                <div class="value">{{interviewing_jobs}}</div>
+                    <canvas id="interviewing-chart"></canvas>
+                <div id="stat-interviewing-jobs" class="value">{{interviewing_jobs}}</div>
             </div>
             
             <div class="stat-card">
                 <h3>Offer</h3>
-                <div class="value">{{offer_jobs}}</div>
+                    <canvas id="offer-chart"></canvas>
+                <div id="stat-offer-jobs" class="value">{{offer_jobs}}</div>
             </div>
             
             <div class="stat-card">
                 <h3>Not Selected</h3>
-                <div class="value">{{rejected_jobs}}</div>
+                    <canvas id="rejected-chart"></canvas>
+                <div id="stat-rejected-jobs" class="value">{{rejected_jobs}}</div>
             </div>
             
             

@@ -1,3 +1,4 @@
+import { showChart } from "./statChart.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     const modalTag = document.getElementById("exampleModal");
@@ -75,6 +76,31 @@ function openNoteModal(id, note, modalTitle, formAction){
 function deleteWarning(){
  return  confirm('Are you sure?')
 }
-// function toggleRow(row) {
-//       row.classList.toggle("expanded");
-// }
+
+const totalJobs = document.getElementById("stat-total-jobs")
+if ( totalJobs!==null ){
+showChart();
+}
+
+const deleteJob = document.getElementById('delete-job-btn')
+if(deleteJob){
+deleteJob.addEventListener('click', (e) => {
+  if (!deleteWarning()) {
+    e.preventDefault()
+    return;
+  }
+})
+}
+
+const deleteNote = document.getElementById("delete-note-btn")
+if(deleteNote){
+deleteNote.addEventListener('click', (e) => {
+  if (!deleteWarning()) {
+    e.preventDefault()
+    return;
+  }
+})
+}
+
+window.openJobModal = openJobModal;
+window.openNoteModal = openNoteModal;

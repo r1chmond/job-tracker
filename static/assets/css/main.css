@@ -35,7 +35,7 @@
 
 body {
   font-family: var(--main-font), "Segoe UI", Tahoma, sans-serif;
-  margin: 0px 10px;
+  margin: 5px 10px;
 }
 
 #add-job-btn-container{
@@ -65,10 +65,10 @@ body {
   background-color: var(--color-light);
 }
 
-.job-listing{
+/* .job-listing{
   display: flex;
   justify-content: space-around;
-}
+} */
 
 #step-icon-container{
     margin-right: 10px;
@@ -131,9 +131,10 @@ body {
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.85em;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 500;
     letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
 }
 
 .status.bookmarked {
@@ -159,4 +160,82 @@ body {
 .status.rejected{
   background-color: var(--color-status-bn);
   color: var(--color-status-fn);
+}
+
+.job-list-item{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  box-shadow: 4px 2px 2px rgba(230, 230, 230, 0.8);
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: rgba(198, 198, 198, 0.8);
+}
+
+.job-list-item:hover{
+  background-color: rgba(245, 245, 245, 0.8);
+}
+
+.job-detail-container{
+  flex: 10;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.job-title{
+  font-weight: bold;
+  flex: 1;
+}
+
+.job-company{
+  flex: 1;
+}
+.job-url{
+  flex: 4;
+}
+.job-location{
+  flex: 1;
+}
+.job-status{
+  flex: 1;
+}
+
+.btns-container{
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nested-table{
+  width: 100%;
+  table-layout: fixed;
+}
+
+.nested-table td{
+  width: 50%;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+#add-note-btn-container{
+  margin-bottom: 8px;
+}
+
+#notes-col{
+  vertical-align: top;
+}
+
+#desc-col{
+  vertical-align: top;
+  padding-left: 10px;
+} 
+
+#note-list-btn-container{
+  margin-left: 5px;
+}
+
+#job-desc-title{
+  font-weight: bold;
+  color: var(--color-status-bb);
 }

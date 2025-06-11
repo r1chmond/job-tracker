@@ -62,9 +62,12 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- chartjs -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
     <!--custom js - keep just before closing tag to ensure all html load first-->
     <script
-      type="text/javascript" src="{% static 'assets/js/main.js'%}"
+      defer type="module" src="{% static 'assets/js/main.js'%}"
     ></script>
   </body>
 </html>
