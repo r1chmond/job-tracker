@@ -29,6 +29,7 @@ def home(request):
 def add_job(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
+        logger.debug(f'======================{form}')
         if form.is_valid():
             form.save()
         else:

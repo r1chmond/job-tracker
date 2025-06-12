@@ -17,7 +17,7 @@
   </form>
 
   <button id="add-job-btn" class="btn primary-btn" 
-  onclick="openJobModal('', '', '', '', '', '','', 'Add Job', '{% url 'add_job' %}')">&#43; Add Job</button>
+  onclick="openJobModal('', '', '', '', '', '','','','', 'Add Job', '{% url 'add_job' %}')">&#43; Add Job</button>
 
 <!-- Job Form Modal -->
 <div class="modal fade" id="jobFormModal" tabindex="-1" aria-labelledby="jobFormModalLabel" aria-hidden="true">
@@ -33,6 +33,7 @@
           {% endfor %}
         {% endif %}
       <div class="modal-body">
+  {{ job_form.media }}
     <form id="job-form" method="POST">
         {% csrf_token %}
    <div class="mb-3">
@@ -90,6 +91,29 @@
   <option value="Not Selected">Not Selected</option>
 </select>
 </div>
+
+<div class="mb-3">
+    <label for="{{ job_form.date_applied.id_for_label }}" class="form-label">Date Applied</label>
+    {{ job_form.date_applied|add_class:"form-control"|attr:"placeholder: DD/MM/YYYY" }}
+    {% if job_form.date_applied.errors %}
+      <div class="text-danger">
+        {% for error in job_form.date_applied.errors %}
+          <div>{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="mb-3">
+    <label for="{{ job_form.deadline.id_for_label }}" class="form-label">Deadline</label>
+    {{ job_form.deadline|add_class:"form-control"|attr:"placeholder: DD/MM/YYYY" }}
+    {% if job_form.deadline.errors %}
+      <div class="text-danger">
+        {% for error in job_form.deadline.errors %}
+          <div>{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
   <div class="mb-3">
   <label for="{{ job_form.description.id_for_label }}" class="form-label">Job Description</label>
     {{ job_form.description|add_class:"form-control" }}
@@ -114,13 +138,13 @@
     <div class="caret job-detail-container">
     <div class="job-title">{{ job.title }}</div>
     <div class="job-company">{{ job.company }} </div>
-    <div class="job-url"><a target="_blank" href="{{ job.url }}">{{ job.url }}</a></div>
+    <div class="job-url"><a target="_blank" href="{{ job.url }}">{{ job.url|shorten_url }}</a></div>
     <div class="job-location">{{ job.location }} </div>
     <div class="job-status status {{ job.status|check_class_name }}">{{ job.status}} </div>
     </div>
     <div class="btns-container">
    <a class="btn primary-btn" 
-        onclick="openJobModal('{{ job.id }}', '{{ job.title|escapejs }}', '{{ job.company|escapejs }}' ,'{{ job.url|escapejs }}','{{ job.location|escapejs }}','{{ job.status|escapejs }}','{{ job.description|escapejs }}' ,'Edit Job', '{% url 'edit_job' job.id %}')"><i class="bx bx-pencil"></i></a>
+        onclick="openJobModal('{{ job.id }}', '{{ job.title|escapejs }}', '{{ job.company|escapejs }}' ,'{{ job.url|escapejs }}','{{ job.location|escapejs }}','{{ job.status|escapejs }}','{{ job.date_applied|escapejs}}', '{{ job.deadline|escapejs }}','{{ job.description|escapejs }}' ,'Edit Job', '{% url 'edit_job' job.id %}')"><i class="bx bx-pencil"></i></a>
     <a id="delete-job-btn" class="btn secondary-btn" href="{% url 'delete_job' job.id %}"><i class="bx bx-trash"></i></a>
     </div>
 
@@ -149,7 +173,19 @@
               </ul>
             </td>
             <td id="desc-col">
-              <div id="job-desc-title">Description</div>
+              <div class="col2-title">Date Applied</div>
+              {% if job.date_applied %}
+              <div>{{job.date_applied}}</div>
+              {%else%}
+              <div id="">TBC</div>
+              {% endif %}
+              <div class="col2-title">Deadline</div>
+              {% if job.deadline%}
+              {{ job.deadline }}
+              {%else%}
+              <div id="">TBC</div>
+              {% endif %}
+              <div class="col2-title">Description</div>
               {{ job.description }}
             </td>
         </tr>

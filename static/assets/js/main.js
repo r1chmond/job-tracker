@@ -22,28 +22,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-// pass job id on button click (add form)
-// document.addEventListener("DOMContentLoaded", function () {
-//     const addNoteBtn = document.getElementsByClassName("add-note-btn")
-//     const addNoteForm = document.getElementById("note-form")
-//     for (let i = 0; i < addNoteBtn.length; i++){
-//     addNoteBtn[i].addEventListener("click",()=>{
-//     link = addNoteBtn.item(i).getAttribute("href")
-//     addNoteForm.action = `${link}`
-//     })
-// }    
-// })
+function changeDateFormat(date){
+  // change 2000-01-01 to 01/01/2000
+  if (date === "None"){
+    return ""
+  }
+  const dateParts = date.split('-')
+  dateParts.reverse();
+  return dateParts.join('/')
+}
 
-function openJobModal(id, title, company, url, location,status, description,modalTitle, formAction) {
+function openJobModal(id, title, company, url, location,status,date_applied, deadline, description,modalTitle, formAction) {
     document.getElementById('jobFormModalLabel').innerText = modalTitle;
     document.getElementById('id_title').value = title;
     document.getElementById('id_company').value = company;
     document.getElementById('id_location').value = location;
     document.getElementById('id_url').value = url;
     document.getElementById('id_status').value = status;
+    document.getElementById('id_date_applied').value = changeDateFormat(date_applied);
+    document.getElementById('id_deadline').value = changeDateFormat(deadline);
     document.getElementById('id_description').value = description;
     document.getElementById('job-form').action = formAction;
 
+    console.log(`date applied: ${date_applied}`)
     const submitBtn = document.getElementById('job-form-submit-btn')
     if (id){
       submitBtn.innerHTML = 'Update'

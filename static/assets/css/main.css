@@ -184,14 +184,14 @@ body {
 }
 .job-title{
   font-weight: bold;
-  flex: 1;
+  flex: 2;
 }
 
 .job-company{
   flex: 1;
 }
 .job-url{
-  flex: 4;
+  flex: 3;
 }
 .job-location{
   flex: 1;
@@ -235,7 +235,7 @@ body {
   margin-left: 5px;
 }
 
-#job-desc-title{
+.col2-title{
   font-weight: bold;
   color: var(--color-status-bb);
 }

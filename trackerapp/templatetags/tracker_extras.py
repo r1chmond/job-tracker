@@ -15,3 +15,8 @@ def check_class_name(status):
     if lowered_status == 'not selected':
         return 'rejected'
     return lowered_status
+
+@register.filter
+def shorten_url(url):
+    shortened = url[:35] + '...'
+    return  shortened

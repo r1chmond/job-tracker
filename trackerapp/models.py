@@ -29,18 +29,20 @@ class Job(models.Model):
                                regex = r'^[A-Za-z\s]+$',
                                message = 'location must only be alphabets')])
     status = models.CharField(max_length=20, blank=False)
+    date_applied = models.DateField(blank=True, null=True)
+    deadline = models.DateField(blank=True, null=True)
     description = models.TextField()
-    date_time_added= models.DateField(auto_now_add=True)
+    date_time_added= models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('-date_time_added',)
+        ordering = ['-date_time_added']
 
 class Note(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     note = models.TextField()
-    date_time_added = models.DateField(auto_now_add=True)
+    date_time_added = models.DateTimeField(auto_now_add=True)
     class Meta:
-        ordering = ('-date_time_added',)
+        ordering = ['-date_time_added']
 
 
 
